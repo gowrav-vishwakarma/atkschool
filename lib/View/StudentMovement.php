@@ -17,7 +17,9 @@ class View_StudentMovement extends View{
             $sel = $this->form->addField('line', 'sel');
             $sel->js(true)->closest('.atk-form-row')->hide();
 			$this->form->addSubmit('Save');
+
 			if($this->form->isSubmitted()){
+
 				try{
 					$form=$this->form;
 					$form->api->db->beginTransaction();
@@ -59,7 +61,18 @@ class View_StudentMovement extends View{
 				}
 
 				$form->api->db->commit();
-				$form->js(null,$this->js()->reload())->univ()->successMessage("Student Record Upadated success fully ")->execute();
+				$form->js(null,$this->js()->reload())->univ()->successMessage("Student Record Upadated success fully ");
+					$this->js()->univ()->newWindow($this->api->url('hostel_studentmovementprint',array('hosteler_id'=>$form->get('hosteler_id'),
+																										'purpose'=>$this->form->get('purpose'),
+																										'gaurdian'=>implode(',', $guardians),
+																										'building'=>$hm->get('building_name'),
+																										'room_no'=>$hm->get('room_no'),
+																										'remark'=>$form->get('remarks'),
+																										'date'=>$sm->get('date'),
+																										'cut_page'=>1
+																										)
+					)
+					)->execute();
 			}
 
 		
