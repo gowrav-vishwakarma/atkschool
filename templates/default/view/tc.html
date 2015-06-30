@@ -1,0 +1,122 @@
+<style type="text/css">
+  table tr td {
+    border: 1px solid black;
+  }
+</style>
+<div id ="<?$_name?>">
+  <h1 align="center">बाल विनय मन्दिर उच्च माध्यमिक विद्यालय</h1>
+  <h3 align="center">J-11 , हरिदासजी की मगरी , उदयपुर (राज)<br />
+  </h3>
+  <div align="center">
+    <h2>टी सी फॉर्म(T.C.Form)</h2>
+<div>लेख प्रमाण (अ) Record (A)</div>
+</div>
+<div>
+  <div>(छात्र रजिस्टर संख्या)Scholar Register No:<?scholar_no?>_________<?/scholar_no?></div>
+  <div>
+    <div align="right">Addmission Register No(प्रवेश रजिस्टर संख्या):_________</div>
+  </div>
+ 
+</div>
+<table width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="4"><div align="center">प्रवेश दिनांक  Date of addmission</div></td>
+    <td colspan="3"><div align="center">छोड़ने की दिनांक Removal Date</div></td>
+    <td colspan="3"><div align="center">छोड़ने का कारण Cause od Removal</div></td>
+  </tr>
+  <tr>
+    <td colspan="4"><?admissiondate?><?/admissiondate?></td>
+    <td colspan="3"><?leaving_date?><?/leaving_date?></td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td colspan="3">&nbsp;</td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="56" colspan="10"><div align="center">लेख प्रमाण (ब) Record (B)</div></td>
+  </tr>
+  <tr>
+    <td colspan="2" rowspan="2"><div align="center">
+      <p>(छात्र का नाम व धर्म)<br />
+        Name of student and Religion</p>
+</div></td>
+    <td colspan="2"><div align="center">
+      <p>(प्रथम प्रवेश के दिन आयु)<br />
+        Age at Date of First admission</p>
+</div></td>
+    <td colspan="3"><div align="center">
+      <p>(नाम, पता  एवं व्यवसाय .......का )<br />
+        Name, address and Occupation</p>
+</div></td>
+    <td width="15%"><div align="center">
+      <p>इस स्कूल में प्रवेश होने से पहले उस स्कूल का नाम जिसमे छात्र पढ़ा हो<br />
+        The Last School if any which the scholar attended before joining this school</p>
+</div></td>
+    <td width="17%"><div align="center">
+      <p>पिछले स्कूल को छोड़ते समय छात्र कौनसी कक्षा में उतीर्ण हुआ या किस कक्षा में चढ़ाये जाने योग्य था<br />
+        The hieghest class from which the scholar was pramoted on leavinf his/her last school</p>
+</div></td>
+    <td width="7%"><div align="center">
+      <p>विवाह की दिनांक यदि विवाह हो गया हो<br />
+        Date of Marriage if married</p>
+</div></td>
+  </tr>
+  <tr>
+    <td width="8%"> वर्ष Years</td>
+    <td width="8%">माह Month</td>
+    <td width="7%"><div align="center">पिता Father</div></td>
+    <td width="7%"><div align="center">माता Mother</div></td>
+    <td width="7%"><div align="center">संरक्षक Guardian</div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td colspan="2" class='hindi'><?hname?><?/hname?></td>
+    <td><?age_years?>&nbsp;<?/age_years?></td>
+    <td><?age_month?>&nbsp;<?/age_month?></td>
+    <td class ='hindi'><?father_name?><?/father_name?></td>
+    <td class='hindi'><?mother_name?><?/mother_name?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td > &nbsp;</td>
+    <td colspan="2">पता ::<span class="hindi"> <?$p_address?></span></td>
+    <td >&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td >&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="19%"><div align="center">Cast जाति</div></td>
+    <td colspan="3"><div align="center"><?$category?></div></td>
+    <td rowspan="2">Date Of Birth<br />
+जन्म दिनांक</td>
+    <td colspan="5">In Numeric अंको में: <?$date_of_birth?></td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td colspan="5">In Words शब्दों में:</td>
+  </tr>
+</table>
+<?$details_location?>
+</div>
