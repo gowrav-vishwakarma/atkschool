@@ -1,0 +1,11 @@
+epans
+*.zip
+config-default.php
+*.orig
+upload/*
+composer.lock
+composer.phar
+vendor/*
+*.sublime-workspace
+todo
+/*.sql
