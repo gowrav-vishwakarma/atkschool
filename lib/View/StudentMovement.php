@@ -33,8 +33,11 @@ class View_StudentMovement extends View{
 					if($form->get('purpose')=='outward') $hm['is_present']=false;
 					$hm->save();
 
-					$guardians=json_decode($form->get('sel'));
-					if(count($guardians)==0 AND $form->get('remarks')==null ) $form->displayError('remarks','It is Must');
+					$guardians=array();
+					if($form->get('sel')){
+						$guardians=json_decode($form->get('sel'));
+					}
+						if(count($guardians)==0 AND $form->get('remarks')==null ) $form->displayError('remarks','It is Must');
 
 
 					$sm=$form->add('Model_Students_Movement');

@@ -36,9 +36,12 @@ class View_PrintStudentMove extends View{
 
 		$guardians_ids=explode(",",$gaurdian); 
 		$guardian_names=array();
+
 		foreach ($guardians_ids as $guardiagn_id){
+			if($guardiagn_id != "" or $guardiagn_id)
 			$guardian_names[] = $this->add('Model_Scholars_GuardianAll')->load($guardiagn_id)->get('name');
 		} 
+		
 
 		$this->template->trySet('name',$hostler_model['hname']);
 		$this->template->trySet('father_name',$hostler_model['father_name']);
