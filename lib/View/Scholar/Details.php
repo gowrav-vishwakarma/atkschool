@@ -46,7 +46,7 @@ class View_Scholar_Details extends CompleteLister{
 		if(!in_array($this->model->get('class_name'), array('10','12','8'))){
 			$this->current_row['class_admission_date'] = " ";
 		}else
-			$this->current_row['class_admission_date'] = $this->model->ref('session_id')->get('start_date');
+			$this->current_row['class_admission_date'] = date('d-M-Y',strtotime($this->model->ref('session_id')->get('start_date')));
 		
 		if(in_array($this->model->get('class_name'), array('10','12','8'))){
 			$this->current_row['class_end_date'] = " ";
@@ -54,7 +54,7 @@ class View_Scholar_Details extends CompleteLister{
 			$this->current_row['all_attendance'] = " ";
 			
 		}else
-			$this->current_row['class_end_date'] = $this->model->ref('session_id')->get('end_date');
+			$this->current_row['class_end_date'] = date('d-M-Y',strtotime($this->model->ref('session_id')->get('end_date')));
 		// $this->current_row['total_meetings'] = $this->model->ref('Student')->ref('Attendance')->get('end_date');
 
 	}

@@ -44,23 +44,53 @@
             <td height="30" colspan="10" valign="middle"><div align="center">लेख प्रमाण (ब) Record (B)</div></td>
         </tr>
         <tr>
-            <td colspan="2" rowspan="2">
-                <div align="center">
+            <td colspan="2"  >
+                <div align="center" style="height:200px">
                     <p>(छात्र का नाम व धर्म)<br />
                          Name of student and Religion</p>
                 </div>
+                <table border="0" width="100%">
+                    <tr>
+                        <td height="128" class='hindi'><?hname?><?/hname?></td>
+                    </tr>
+                </table>
             </td>
             <td colspan="2">
-                <div align="center">
+                <div align="center" style="height:200px">
                     <p>(प्रथम प्रवेश के दिन आयु)<br />
                     Age at Date of First admission</p>
                 </div>
+                <table border="0" width="100%">
+                    <tr>
+                        <td width="8%"> वर्ष <br>Years</td>
+                        <td width="8%">माह <br>Month</td>
+                    </tr>
+                    <tr>
+                        <td width="8%" height="58">&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
             </td>
             <td colspan="3">
-                <div align="center">
+                <div align="center" style="height:200px">
                     <p>(नाम, पता  एवं व्यवसाय .......का )<br />
                         Name, address and Occupation</p>
                 </div>
+                <table border="0" width="100%">
+                    <tr>
+                       <td width="7%"><div align="center">पिता <br>Father</div></td>
+                        <td width="7%"><div align="center">माता <br> Mother</div></td>
+                        <td width="7%"><div align="center">संरक्षक <br> Guardian</div></td>
+                    </tr>
+                    <tr>
+                        <td class ='hindi'><?father_name?><?/father_name?></td>
+                        <td class='hindi'><?mother_name?><?/mother_name?></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="12">पता ::<span class="hindi"> <?$p_address?></span></td>
+                    </tr>
+                </table>
             </td>
             <td width="15%">
                 <div align="center">
@@ -82,32 +112,32 @@
             </td>
         </tr>
         <tr align="center">
-            <td width="8%"> वर्ष <br>Years</td>
-            <td width="8%">माह <br>Month</td>
-            <td width="7%"><div align="center">पिता <br>Father</div></td>
+            <!-- <td width="8%"> वर्ष <br>Years</td>
+            <td width="8%">माह <br>Month</td> -->
+            <!-- <td width="7%"><div align="center">पिता <br>Father</div></td>
             <td width="7%"><div align="center">माता <br> Mother</div></td>
-            <td width="7%"><div align="center">संरक्षक <br> Guardian</div></td>
+            <td width="7%"><div align="center">संरक्षक <br> Guardian</div></td> -->
+            <!-- <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>&nbsp;</td> -->
         </tr>
   
         <tr>
-            <td colspan="2" class='hindi'><?hname?><?/hname?></td>
+            <!-- <td colspan="2" class='hindi'><?hname?><?/hname?></td>
             <td><?age_years?>&nbsp;<?/age_years?></td>
-            <td><?age_month?>&nbsp;<?/age_month?></td>
-            <td class ='hindi'><?father_name?><?/father_name?></td>
+            <td><?age_month?>&nbsp;<?/age_month?></td> -->
+            <!-- <td class ='hindi'><?father_name?><?/father_name?></td>
             <td class='hindi'><?mother_name?><?/mother_name?></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>&nbsp;</td> -->
         </tr>
-        <tr>
+       <!--  <tr>
             <td colspan="2"></td>
             <td > &nbsp;</td>
             <td colspan="12">पता ::<span class="hindi"> <?$p_address?></span></td>
-        </tr>
+        </tr> -->
 
         <tr>
             <td width="19%"><div align="center">जाति &nbsp; <br>Cast </div></td>
