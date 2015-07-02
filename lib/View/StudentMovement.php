@@ -4,13 +4,16 @@ class View_StudentMovement extends View{
 	var $form;
 	var $gaurdian_grid;
 	var $hosteler;
+	public $class_id;
 	function init(){
 		parent::init();
+
 		$this->information_grid=$this->add('Grid');
 		$this->gaurdian_grid=$this->add('Grid');
 		$this->form = $this->add('Form',NULL,NULL,array('form_horizontal'));
 		$array = array('inward' => 'inward', 'outward' => 'outward', 'enquiry' => 'enquiry');//, 'card outward'=>'Card Outward','self outward'=>'Self Outward','card inward'=>'Card Inward','self inward'=>'Self Inward'
             $this->form->addField('hidden','hosteler_id');
+            $this->form->addField('hidden','class_id')->set($this->class_id);
             $drp_prps = $this->form->addField('dropdown', 'purpose','Action')->setEmptyText('----')->setNotNull();
             $drp_prps->setValueList($array);
 			$this->form->addField('line','remarks');
@@ -38,7 +41,6 @@ class View_StudentMovement extends View{
 						$guardians=json_decode($form->get('sel'));
 					}
 						if(count($guardians)==0 AND $form->get('remarks')==null ) $form->displayError('remarks','It is Must');
-
 
 					$sm=$form->add('Model_Students_Movement');
 					$sm['student_id']=$hm->id;
@@ -68,6 +70,7 @@ class View_StudentMovement extends View{
 					$this->js()->univ()->newWindow($this->api->url('hostel_studentmovementprint',array('hosteler_id'=>$form->get('hosteler_id'),
 																										'purpose'=>$this->form->get('purpose'),
 																										'gaurdian'=>implode(',', $guardians),
+																										'class_id'=>$form->get('class_id'),
 																										'building'=>$hm->get('building_name'),
 																										'room_no'=>$hm->get('room_no'),
 																										'remark'=>$form->get('remarks'),
@@ -96,7 +99,6 @@ class View_StudentMovement extends View{
 
 		$this->gaurdian_grid->setModel($m->ref('scholar_id')->ref('Scholars_Guardian'),array('gname','address','contact','relation','image_url'));
 		$this->form->getElement('hosteler_id')->set($m->id);
-            
 
             // $map = $this->add('Model_Scholars_Guardian');
 

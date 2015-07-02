@@ -7,6 +7,7 @@ class View_PrintStudentMove extends View{
 	function init(){
 		parent::init();
 		$hosteler_id=$_GET['hosteler_id'];
+		$class_id=$_GET['class_id'];
 		$gaurdian=$_GET['gaurdian'];
 		$purpose=$_GET['purpose'];
 		$building=$_GET['building'];
@@ -14,7 +15,7 @@ class View_PrintStudentMove extends View{
 		$remark=$_GET['remark'];
 		$date=$_GET['date'];
 
-		// echo "string".$hosteler_id. $gaurdian. $purpose . $building. $room_no . $remark.$date;
+		// echo "string" .$class_id;
 		
 		$hostler_model=$this->add('Model_Hosteler');
 		$scholar_j = $hostler_model->LeftJoin('scholars_master','scholar_id');
@@ -41,11 +42,14 @@ class View_PrintStudentMove extends View{
 			if($guardiagn_id != "" or $guardiagn_id)
 			$guardian_names[] = $this->add('Model_Scholars_GuardianAll')->load($guardiagn_id)->get('name');
 		} 
-		
 
+		$class_model=$this->add('Model_Class');
+		$class_name=$class_model->load($class_id)->get('name');
+		
 		$this->template->trySet('name',$hostler_model['hname']);
 		$this->template->trySet('father_name',$hostler_model['father_name']);
 		$this->template->trySetHTML('gaurdian_name',implode('] <br/>', $guardian_names));
+		$this->template->trySetHTML('class',$class_name);
 		$this->template->trySet('building',$building);
 		$this->template->trySet('room_no',$room_no);
 		$this->template->trySet('date',$date);

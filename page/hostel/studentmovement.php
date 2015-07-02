@@ -8,17 +8,19 @@ class page_hostel_studentmovement extends Page{
 		$student_field=$form->addField('dropdown','student')->setAttr('class','hindi')->setEmptyText('-----');
 		$form->addSubmit('Get List');
 
-		$v=$this->add('View_StudentMovement');
 
 		$c=$this->add('Model_Class');
 		$s=$this->add('Model_Hosteler');
 		$s->add('Controller_CurrentSession');
 		
-
+		
 		if($_GET['class_id']){
 			$s->addCondition('class_id',$_GET['class_id']);
 			$s->_dsql()->del('order')->order('fname','asc');
 		}	
+		
+		$v=$this->add('View_StudentMovement',array('class_id'=>$_GET['class_id']));
+
 
 		$s->_dsql()->order('fname','asc');
 		$class_field->setModel($c);
@@ -39,7 +41,9 @@ class page_hostel_studentmovement extends Page{
 
 		if($form->isSubmitted()){
 			// throw $this->exception($form->get('student'));
-			$v->js()->reload(array('hostler_id'=>$form->get('student')))->execute();
+			$v->js()->reload(array(
+									'hostler_id'=>$form->get('student'),
+									'class_id'=>$form->get('class')))->execute();
 		}
 
 	}
