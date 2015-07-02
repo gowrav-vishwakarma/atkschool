@@ -10,6 +10,12 @@ class View_Scholar_Details extends CompleteLister{
 	}
 
 	function setModel($model){
+		$model->addExpression('class_name')->set(function ($m,$q){
+			return $m->refSQL('class_id')->fieldQuery('class_name');
+        });
+
+		// throw new Exception($model->get('class_name'), 1);
+		
 		$model->addExpression('total_meetings')->set(function($m,$q){
 			return $m->refSQL('Students_Attendance')->sum('total_attendance');
 		});
@@ -36,8 +42,19 @@ class View_Scholar_Details extends CompleteLister{
 		// }else{
 		// 	$this->column['last_column']->destroy();
 		// }
-		$this->current_row['class_admission_date'] = $this->model->ref('session_id')->get('start_date');
-		$this->current_row['class_end_date'] = $this->model->ref('session_id')->get('end_date');
+
+		if(!in_array($this->model->get('class_name'), array('10','12','8'))){
+			$this->current_row['class_admission_date'] = " ";
+		}else
+			$this->current_row['class_admission_date'] = $this->model->ref('session_id')->get('start_date');
+		
+		if(in_array($this->model->get('class_name'), array('10','12','8'))){
+			$this->current_row['class_end_date'] = " ";
+			$this->current_row['total_meetings'] = " ";
+			$this->current_row['all_attendance'] = " ";
+			
+		}else
+			$this->current_row['class_end_date'] = $this->model->ref('session_id')->get('end_date');
 		// $this->current_row['total_meetings'] = $this->model->ref('Student')->ref('Attendance')->get('end_date');
 
 	}

@@ -24,7 +24,7 @@ class page_student_tc extends Page{
 			if(!$scholar->loaded())
 				$form->displayError('scholar_no','This is not a valid scholar_no');
 
-			$form->js(null,$form->js()->reload())->univ()->newWindow($this->api->url("./tcform",array('scholar_id'=>$scholar->id)),null,'height=689,width=1246,scrollbar=1')->execute();
+			$form->js(null,$form->js()->reload())->univ()->newWindow($this->api->url("./tcform",array('scholar_id'=>$scholar->id)),null/*,'height=689,width=1246,scrollbar=1'*/)->execute();
 
 		}
 	}
