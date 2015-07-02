@@ -24,8 +24,8 @@ class Model_Scholar extends Model_Table {
                 $this->addField("isActive")->type('boolean')->mandatory("Is This Active")->defaultValue(true);
                 $this->addField('leaving_date')->type('date')->defaultValue(null);
                 $this->addField('previouse_school_name')->display('hindi');
-                $this->addField('previouse_class_name')->display('hindi');
-                $this->addField('category')->setValueList(array(null=>'Select Category', 'GEN'=>'GEN',"ST"=>"ST","SC"=>"SC","TAD"=>"TAD(ST)","OBC"=>"OBC","SOBC"=>"SPECIAL OBC","MINORITY"=>"MINORITY"))->mandatory("category is must");
+                $this->addField('previouse_class_name')->display('hindi');               
+                $this->addField('category')->setValueList(array(null=>'Select Category',  'GEN'=>'GEN',"ST"=>"ST","SC"=>"SC","TAD"=>"TAD(ST)","OBC"=>"OBC","SOBC"=>"SPECIAL OBC","MINORITY"=>"MINORITY","EBC"=>"EBC","SBC"=>"SBC"))->mandatory("category is must");
                 
                 $this->hasMany('Student','scholar_id');
                 $this->hasMany('Scholars_GuardianAll','scholar_id');
