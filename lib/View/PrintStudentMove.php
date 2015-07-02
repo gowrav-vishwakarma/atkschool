@@ -52,7 +52,7 @@ class View_PrintStudentMove extends View{
 		$this->template->trySetHTML('class',$class_name);
 		$this->template->trySet('building',$building);
 		$this->template->trySet('room_no',$room_no);
-		$this->template->trySet('date',$date);
+		$this->template->trySet('date',date('d-M-Y H:i:s',strtotime($date)));
 		$this->template->trySet('discription',$remark);
 		
 	}
