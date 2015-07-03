@@ -50,13 +50,15 @@ class page_store_itemoutward extends Page {
 			$ism=$this->add('Model_Item_Issue');
 			$ism->addCondition('student_id',$_GET['student_id']);
 			$ism->addCondition('month',$this->api->recall('issue_month'));
-			$ism->getElement('rate')->setvalueList($this->api->recall('rates_selected',array('-')));
 			// $t->addCondition('is_stationory',1);
 
 			// $ism->debug();
 			$crud=$this->add('CRUD');
 			if($crud->grid){
 				$crud->grid->addColumn('sno','Sno');	
+			}else{
+				$ism->getElement('rate')->setvalueList($this->api->recall('rates_selected',array('-')));
+				
 			}
 			$crud->setModel($ism,null,array('sno','item','quantity','date','rate','amount','is_stationory'));
 			if($crud->form){
