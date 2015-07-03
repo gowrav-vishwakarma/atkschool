@@ -17,7 +17,9 @@ class View_Receipt extends View {
 		
 		$ism = $st->ref('Item_Issue');
 		$ism->addExpression('date_month')->set('Month(date)');
-		$ism->addCondition('date_month',$this->month);
+		if($this->month){
+			$ism->addCondition('date_month',$this->month);
+		}
 		// throw new Exception("hjjhjh".$_GET['month'].$ism['date_month']);
 		$ism->addExpression('total_qty')->set('sum(quantity)');
 		$ism->addExpression('total_amount')->set('sum(quantity * rate)');
@@ -33,7 +35,7 @@ class View_Receipt extends View {
 		$this->template->trySet('class_name',$st->ref('class_id')->get('name'));
 		$this->template->trySet('receipt',$receipt_no);
 		$this->template->trySet('store_no',$st['store_no']);
-		$this->template->trySet('month',date("M",strtotime("2000-".$_GET['month']."-01")));
+		$this->template->trySet('month',date("M",strtotime("2000-".$this->month."-01")));
 
 		$this->grid=$this->add('Grid',null,null,array('condensegrid'));
 		$this->grid->addColumn('sno','sno');

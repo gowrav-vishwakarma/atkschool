@@ -80,8 +80,8 @@ class page_store_reports extends Page{
       // throw $this->exception(strpos($form->get('store_no'),'-'));
 
       // $form->displayError('store_no',strpos($form->get('store_no'),'-'));
-      if(strpos($form->get('store_no'),'-')!== false){
-        $this->js()->univ()->newWindow( $this->api->url( "store/MultiRecieptPrint", array( "month"=>$form->get( 'month' ), "store_no"=>$form->get( 'store_no' ) ) ), null, 'height=689,width=1246,menubar=1' )->execute();
+      if(strpos($form->get('store_no'),'-')!== false ){
+        $this->js()->univ()->newWindow( $this->api->url( "store/MultiRecieptPrint", array( "month"=>$form->get( 'month' ), "store_no"=>$form->get( 'store_no' ))), null, 'height=689,width=1246,menubar=1' )->execute();
       }
 
       if ( $form->get( 'month' )==0 ) {

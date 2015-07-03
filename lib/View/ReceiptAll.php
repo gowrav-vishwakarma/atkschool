@@ -6,6 +6,8 @@ class View_ReceiptAll extends View {
 
 	function init(){
 		parent::init();
+
+
 		$st=$this->add('Model_Hosteler');
 		$st->addCondition('store_no',$this->store_no);
 		$st->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
@@ -20,7 +22,9 @@ class View_ReceiptAll extends View {
 		
 		$ism = $st->ref('Item_Issue');
 		$ism->addExpression('date_month')->set('FORMAT(Month(date),"M")');
-		// $ism->addCondition('date_month',$_GET['month']);
+		if($this->month){
+			$ism->addCondition('date_month',$this->month);
+		}
 		$ism->addExpression('total_qty')->set('sum(quantity)');
 		$ism->addExpression('total_amount')->set('round(sum(quantity * rate))');
 		$ism->_dsql()->group('date_month');
@@ -49,6 +53,11 @@ class View_ReceiptAll extends View {
 
 		$this->grid->addTotals(array('total_amount'));
 
+		if($this->month == 0){
+			foreach ($ism as $is) {
+				$v=$this->add('View_Receipt',array('store_no'=>$this->store_no,'month'=>$ism['date_month']),null,array('view/receipt'));
+			}
+		}
 		// $this->api->welcome->destroy();
 
 
