@@ -16,7 +16,7 @@ class Model_Staff_All extends Model_Table {
                 $this->addField('pan_no')->mandatory("Required Field");
                 $this->add("filestore/Field_Image","image");//->type('image');//$this->add("filestore/Field_Image", "student_image"); 
                 $this->addField('address')->type('Text')->mandatory("Required Field")->caption('Address')->display('hindi');
-                $this->addField('sex')->setValueList(array('Male','Female'))->defaultValue('M')->display(array('form' => 'dropdown'));
+                $this->addField('sex')->enum(array('Male','Female'))->mandatory("Required Field");//->defaultValue('M')->display(array('form' => 'dropdown'));
                 $this->addField('accno')->caption('Bank Account Number');
                 $this->addField('insurance_no')->caption('Insurance');
                 $this->addField('ofhostel')->type('boolean')->caption("Hostel");
