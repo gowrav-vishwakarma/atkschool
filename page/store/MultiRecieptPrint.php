@@ -15,6 +15,7 @@ class page_store_MultiRecieptPrint extends Page {
 
       	for($i=$start_store; $i<= $end_store; $i++){
 			$this->add('H3')->setHtml("Bal Vinay Mandir Senior Secondary School,Udaipur<br/><small>Session: ".$this->add('Model_Sessions_Current')->tryLoadAny()->get('name')."</small>")->setAttr('align','center');
+			    $v=$this->add('View_ReceiptAll',array('store_no'=>$i,'month'=>$_GET['month']),null,array('view/receiptAllPrint'));
 	    	if($_GET['month']){
 	    		$v=$this->add('View_Receipt',array('store_no'=>$i,'month'=>$_GET['month']),null,array('view/receipt'));
 	    	}else{
