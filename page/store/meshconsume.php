@@ -47,7 +47,7 @@ class page_store_meshconsume extends Page{
 		}
 		if($crud->grid){
 		$crud->grid->addQuickSearch(array('item','unit','quantity'));
-		$crud->grid->addPaginator(10);
+		$crud->grid->addPaginator(15);
 		$crud->grid->addFormatter('item','hindi');
 		$crud->grid->removeColumn('party');
 		$crud->grid->removeColumn('session');

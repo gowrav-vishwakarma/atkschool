@@ -20,6 +20,7 @@ class View_Scholar extends View{
 		$this->add('View_Scholar_Details',null,'details_location')->setModel($student);
 
 		$this->template->tryset('date_of_birth',date('d-m-Y',strtotime($scholar['dob'])));
+		$this->template->tryset('date_of_birth_word',date('d-m-Y',strtotime($scholar['dob'])));
 		$this->template->tryset('admissiondate',date('d-m-Y',strtotime($scholar['admission_date'])));
 
 
