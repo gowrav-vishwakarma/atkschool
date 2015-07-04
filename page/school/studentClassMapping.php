@@ -39,7 +39,8 @@ class page_school_studentClassMapping extends Page {
 		$grid=$this->add('Grid');
 		$m=$this->add('Model_Scholar');
 		$m->addCondition('active_in_session',false);
-		$grid->setModel($m,array('name','scholar_no','image_url'));
+		$grid->setModel($m,array('fname','name','father_name','scholar_no','image_url'));
+		$grid->addQuickSearch(array('fname','scholar_no'));
 		$grid->addColumn('Button','Add');
 		if($_GET['Add']){
 			$s=$this->add('Model_Students_Current');
