@@ -7,6 +7,7 @@ class page_masters extends Page{
 		$tab=$this->add('Tabs');
 		$tab->addTabURL('masters_session','Session');
 		$tab->addTabURL('masters_news','News');
+		$tab->addTabURL('masters_welcome','Welcome Logo');
 		$tab->addTabURL('masters_class','Class');
 		$tab->addTabURL('masters_subject','Subject');
 		$tab->addTabURL('masters_exam','Exam');
