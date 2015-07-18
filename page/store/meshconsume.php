@@ -6,6 +6,7 @@ class page_store_meshconsume extends Page{
 		$col1=$cols->addColumn(6);
 		$col2=$cols->addColumn(6);
 		$this->api->stickyGET('party_id');
+		$this->api->stickyGET('item_id');
 		$col1->add('H1')->setHTML('<h2>Consume Mess Items Here</h2>');
 		$form=$col1->add('Form');
 		$item_consume=$this->add('Model_Mesh_ItemConsume');

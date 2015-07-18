@@ -11,7 +11,7 @@ class View_ReceiptAll extends View {
 		$st=$this->add('Model_Hosteler');
 		$st->addCondition('store_no',$this->store_no);
 		$st->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
-		 
+		$st->setOrder('store_no','asc'); 
 		$st->tryLoadAny();
 		if(!$st->loaded()) {
 			$this->destroy();
@@ -52,13 +52,12 @@ class View_ReceiptAll extends View {
 		// $this->grid->setFormatter('total_qty','number');
 
 		$this->grid->addTotals(array('total_amount'));
-
-		if($this->month == 0){
-			foreach ($ism as $is) {
-				$v=$this->add('View_Receipt',array('store_no'=>$this->store_no,'month'=>$ism['date_month']),null,array('view/receipt'));
-			}
-		}
-		// $this->api->welcome->destroy();
+		// if($this->month == 0){
+		// 	foreach ($ism as $is) {
+		// 		$v=$this->add('View_Receipt',array('store_no'=>$this->store_no,'month'=>$ism['date_month']),null,array('view/receipt'));
+		// 	}
+		// }
+		$this->api->welcome->destroy();
 
 
 	}

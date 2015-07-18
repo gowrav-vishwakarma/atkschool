@@ -19,25 +19,36 @@ class Model_Mesh_ItemConsume extends Model_Table{
 
 		$this->add('dynamic_model/Controller_AutoCreator');
 		$this->addHook('beforeSave',$this);
+		$this->addHook('beforeDelete',$this);
 	}
 	function beforeSave(){
 		$itemInward=$this->add('Model_Mesh_ItemInward');
 		$itemInward->addCondition('item_id',$this['item_id']);
 		$itemInward->tryLoadAny();
-				// throw new Exception($itemInward['item_id'], 1);
 		if($this['unit']!=$itemInward['unit']){
 			throw new Exception("wrong Unit", 1);
 		}
-			
 		if($itemInward->loaded()){
+				// throw new Exception($itemInward['item_id'], 1);
 			if($itemInward['quantity'] < $this['quantity'])
-				throw new Exception("There is no sufficient Item for consume");
+				throw new Exception("There is no sufficient Item for consume1");
 				// $this->api->js()->univ()->errorMessage('There is no sufficient Item');
+		}else{
+
+			if($itemInward['quantity'] < $this['quantity'])
+				throw new Exception("There is no sufficient Item for consume2");
 		}
+			
 		$new_stock = $this['quantity'];
 		$item_m=$this->ref('item_id');
 		$item_m['stock'] = $item_m['stock'] - $new_stock;
 		$item_m->save();
-		
+	}
+
+	function beforeDelete(){
+		$old_stock = $this['quantity'];
+		$item_m=$this->ref('item_id');
+		$item_m['stock'] = $item_m['stock'] + $old_stock;
+		$item_m->save();	
 	}
 }
