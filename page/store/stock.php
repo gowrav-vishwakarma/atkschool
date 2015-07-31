@@ -43,7 +43,12 @@ class page_store_stock extends Page {
 			$itm=$m->add('Model_Mesh_ItemInward');
 			$itm->addCondition('session_id','<=',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 			$itm->addCondition('item_id',$q->getField('id'));
-			return "(". $itm->sum('quantity')->render(). " - " . $m->refSQL('Mesh_ItemConsume')->sum('quantity')->render().")";
+
+			$itm_c=$m->add('Model_Mesh_ItemConsume');
+			$itm_c->addCondition('session_id','<=',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$itm_c->addCondition('item_id',$q->getField('id'));
+
+			return '('.$itm->sum('quantity')/*-$itm_c->sum('quantity')*/.')';
 		})->caption('Last Year Remain Stock');
 
 
