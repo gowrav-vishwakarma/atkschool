@@ -66,8 +66,9 @@ class View_StudentMovement extends View{
 				}
 
 				$form->api->db->commit();
-				$form->js(null,$this->js()->reload())->univ()->successMessage("Student Record Upadated success fully ");
-					$this->js()->univ()->newWindow($this->api->url('hostel_studentmovementprint',array('hosteler_id'=>$form->get('hosteler_id'),
+				$js = [
+						$this->js()->reload(),
+						$this->js()->univ()->newWindow($this->api->url('hostel_studentmovementprint',array('hosteler_id'=>$form->get('hosteler_id'),
 																										'purpose'=>$this->form->get('purpose'),
 																										'gaurdian'=>implode(',', $guardians),
 																										'class_id'=>$form->get('class_id'),
@@ -77,8 +78,10 @@ class View_StudentMovement extends View{
 																										'date'=>$sm->get('date'),
 																										'cut_page'=>1
 																										)
-					)
-					)->execute();
+																		)
+														)		
+					];
+				$form->js(null,$js)->univ()->successMessage("Student Record Upadated success fully ")->execute();
 			}
 
 		

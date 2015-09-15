@@ -1,7 +1,7 @@
 <?php
 class page_hostel_studentdisease extends Page{
 	function page_index(){
-		parent::init();
+		// parent::init();
 		$acl=$this->add('xavoc_acl/Acl');
 		$form=$this->add('Form');
 		$form->addField('dropdown','treatment','Filter For')->setValueList(array('all'=>'All', 'nt'=>'Not Treated','t'=>'Treated'));
@@ -49,12 +49,15 @@ class page_hostel_studentdisease extends Page{
 			$crud->form->getElement('disease_id')->setAttr('class','hindi');
 			$class_field=$crud->form->addField('dropdown','class')->setEmptyText("---")->setAttr('class','hindi');
 			$class_field->setModel($c);
-			if($_GET['class_idx']){
-				$crud->form->getElement('student_id')->dq->where('class_id',$_GET['class_idx'])->order('fname');
+			if($_GET['class']){
+				// throw new Exception($_GET['class'], 1);
+				
+				// $crud->form->getElement('student_id')->getModel()->addCondition('class_id',$_GET['class'])->order('fname');
+				$crud->form->getElement('student_id')->dq->where('class_id',$_GET['class'])->order('fname');
 			}
 			// throw $this->Exception("Error Processing Request",$_GET['class_idx']);
 			
-			$class_field->js('change',$crud->form->js()->atk4_form('reloadField','student_id',array($this->api->getDestinationURL(), 'class_idx'=>$class_field->js()->val())));
+			$class_field->js('change',$crud->form->js()->atk4_form('reloadField','student_id',array($this->api->getDestinationURL(), 'class'=>$class_field->js()->val())));
 		
 			$crud->form->add('Order')->move('class','before','student_id')->now();
 		}

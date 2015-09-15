@@ -14,8 +14,8 @@ class View_MS_WelcomeImage extends View {
 		if(!$this->model->loaded())
 			$this->model->tryloadAny();
 			// $str='<img src="upload/'.$this->model['image_url'].'"/>';
-			$str= str_replace('thumb_',"", $this->model['original_url']);
-			$this->template->Set("welcome_logo",$str);
+			// $str= str_replace('thumb_',"", $this->model['image_url']);
+			$this->template->Set("welcome_logo",$this->model['image_url']);
 	}
 
 	function defaultTemplate(){
