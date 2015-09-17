@@ -8,9 +8,15 @@ class page_hostel_studentdisease extends Page{
 		$form->addSubmit('Filter');
 
 		$crud=$this->add('CRUD');
-
+		$session=$this->add('Model_Session');
+		$session->addCondition('iscurrent',true);
+		$session->tryLoadAny();
 		
 		$m=$this->add('Model_Students_Disease');
+		// $m->addCondition('session_id',$session['id']);
+		$m->getElement('student_id')->getModel()->addCondition('session_id',$session['id']);
+		// throw new Exception($session['id'], 1);
+		
 		if($_GET['filter']){
 			switch ($_GET['filter']) {
 				case 'nt':
