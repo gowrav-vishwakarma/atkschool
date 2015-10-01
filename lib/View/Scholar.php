@@ -4,7 +4,11 @@ class View_Scholar extends View{
 	function init(){
 		parent::init();
 
+
+
+
 	}
+
 
 	function setModel($scholar){
 		$student=$scholar->ref('Student');
@@ -19,8 +23,13 @@ class View_Scholar extends View{
 
 		$this->add('View_Scholar_Details',null,'details_location')->setModel($student);
 
+		// echo $this->convert_number_to_words($scholar['dob']);
+		$date = $scholar['dob'];
+		$mydate = strtoTime($date);
+		$printdate = date('d  F, Y', $mydate);
+		// echo $printdate;
 		$this->template->tryset('date_of_birth',date('d-m-Y',strtotime($scholar['dob'])));
-		$this->template->tryset('date_of_birth_word',date('d-m-Y',strtotime($scholar['dob'])));
+		$this->template->tryset('date_of_birth_word',$printdate);
 		$this->template->tryset('admissiondate',date('d-m-Y',strtotime($scholar['admission_date'])));
 
 
