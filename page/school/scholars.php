@@ -43,7 +43,7 @@ class page_school_scholars extends Page {
         $sc->addField('p_address')->type('text');
         $sc->addField('sex')->setValueList(array('M'=>'Male','F'=>'Female'))->mandatory('This field is Must');
         $sc->addField('isActive')->type('boolean')->defaultValue(true);
-        $sc->addField('category')->setValueList(array(null=>'Select Category', 'GEN'=>'GEN',"ST"=>"ST","SC"=>"SC","TAD"=>"TAD(ST)","OBC"=>"OBC","SOBC"=>"SPECIAL OBC","MINORITY"=>"MINORITY","EBC"=>"EBC","SBC"=>"SBC"))->mandatory("Category is must");
+        $sc->addField('category')->setValueList(array(null=>'Select Category', 'GEN'=>'GEN',"ST"=>"ST","SC"=>"SC","TAD"=>"TAD(ST)","OBC"=>"OBC","MINORITY"=>"MINORITY","EBC"=>"EBC","SBC"=>"SBC"))->mandatory("Category is must");
         $sc->addField('leaving_date')->type('date');
         $s->addCondition( 'session_id', $this->add( 'Model_Sessions_Current' )->tryLoadAny()->get( 'id' ) );
         
