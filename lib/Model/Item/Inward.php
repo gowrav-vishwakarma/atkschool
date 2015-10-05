@@ -8,13 +8,16 @@ class Model_Item_Inward extends Model_Table{
 
 		$this->hasOne('Item','item_id');
 		$this->hasOne('Bill','bill_id');
-		// $this->hasOne('Session','session_id');
+		$this->hasOne('Sessions_Current','session_id');
+
 		$this->addField('quantity');
 		$this->addfield('rate');
 		// $this->addfield('date')->type('date')->defaultValue(date('Y-m-d'));
 		$this->addExpression('Amount')->set('quantity * rate');
 
 		$this->addHook('beforeSave',$this);
+
+		// $this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function beforeSave(){

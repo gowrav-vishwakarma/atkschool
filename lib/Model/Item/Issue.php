@@ -18,7 +18,7 @@ class Model_Item_Issue extends Model_Table{
 		$this->addExpression('amount')->set('round(quantity * rate,2)');
 		$this->addExpression("month")->set('Month(`date`)')->display('month');
 		$this->addExpression('year')->set('Year(`date`)');
-		$this->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+		// $this->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 
 
 		$this->addHook('beforeSave',$this);
@@ -42,6 +42,11 @@ class Model_Item_Issue extends Model_Table{
 				$this['receipt_no']=$r+1;
 
 			}
+
 		}
+		$new_stock = $this['quantity'];
+		$item_m=$this->ref('item_id');
+		$item_m['stock'] = $item_m['stock'] - $new_stock;
+		$item_m->save();
 	}
 }

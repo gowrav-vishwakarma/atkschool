@@ -104,23 +104,33 @@ class page_store_stock extends Page {
 		return $x->sum('quantity');
 		});
 
-		// $item->addExpression('previous_stocks')->set(function($m,$q){
-		// 	$itm=$m->add('Model_Item_Inward');
-		// 	// $itm->addCondition('session_id','<=',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
-		// 	$itm->addCondition('item_id',$q->getField('id'));
+		$item->addExpression('previous_stocks_inword')->set(function($m,$q){
+			$itm=$m->add('Model_Item_Inward');
+			$itm->addCondition('session_id','<',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$itm->addCondition('item_id',$q->getField('id'));
 
-		// 	$itm_c=$m->add('Model_Item_Issue');
-		// 	// $itm_c->addCondition('session_id','<=',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
-		// 	$itm_c->addCondition('item_id',$q->getField('id'));
+			$t_qty=$itm->sum('quantity');/*-$itm_c->sum('quantity')*//*.*//*')';*/
+			return $t_qty;
 
-		// 	return '('.$itm->sum('quantity')/*-$itm_c->sum('quantity')*/.')';
-		// });
+		});
 
+		$item->addExpression('previous_stocks_outword')->set(function($m,$q){
+			$issue = $m->add('Model_Item_Issue');
+			$issue->addCondition('session_id','<',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$issue->addCondition('item_id',$q->getField('id'));
+			$i_qty = $issue->sum('quantity');
+			return $i_qty;
 
-		$this->grid->setModel($item,array('name','LastPurchasePrice','inward','outward','TotalIssued','TotalInwardStock'));
+		});
+
+		$this->grid->setModel($item,array('name','LastPurchasePrice','inward','outward','TotalIssued','TotalInwardStock','previous_stocks_inword','previous_stocks_outword'));
 		
 		$this->grid->addMethod('format_stock',function($g,$field){
-			$g->current_row[$field]='0';
+			$g->current_row[$field] = $g->model['previous_stocks_inword'] - $g->model['previous_stocks_outword'];
+			// echo "string".$g->current_row['TotalInwardStock'];
+			// $t_qty=$itm->ref('item_id')->get('TotalInwardStock')-$g->current_row['TotalIssued'];/*-$itm_c->sum('quantity')*//*.*//*')';*/
+			// // return $t_qty
+			// $g->current_row[$field]=$t_qty;
 		});
 
 
@@ -128,10 +138,12 @@ class page_store_stock extends Page {
 		$this->grid->addColumn('stock','previouse_stock');
 
 		$this->grid->addMethod('format_totalqty',function($g,$field){
-			$g->current_row[$field]=$g->current_row['TotalInwardStock']-$g->current_row['TotalIssued'];
+			$g->current_row[$field]=$g->current_row['TotalInwardStock'] + $g->current_row['previous_stocks_inword'] - $g->current_row['TotalIssued'];
 		});
 		$this->grid->addColumn('totalqty','total_current_stock');
 		$this->grid->removeColumn('inward');
 		$this->grid->removeColumn('outward');
+		$this->grid->removeColumn('previous_stocks_outword');
+		$this->grid->removeColumn('previous_stocks_inword');
 	}
 }

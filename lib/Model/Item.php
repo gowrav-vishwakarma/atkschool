@@ -21,7 +21,7 @@ class Model_Item extends Model_Table{
 		
 		$this->addExpression("CurrentInwardStock")->set(function ($m,$q){
 			$itm=$m->add('Model_Item_Inward');
-			$itm->join('bill_master.id','bill_id')->addField('session_id');
+			$itm->join('bill_master.id','bill_id');//->addField('session_id');
 			$itm->addCondition('session_id',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 			$itm->addCondition('item_id',$m->getField('id'));
 			return $itm->sum('quantity');
@@ -30,7 +30,8 @@ class Model_Item extends Model_Table{
 
 		$this->addExpression("TotalInwardStock")->set(function ($m,$q){
 			$itm=$m->add('Model_Item_Inward');
-			$itm->join('bill_master.id','bill_id')->addField('session_id');
+			$itm->join('bill_master.id','bill_id');//->addField('session_id');
+			$itm->addCondition('session_id',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 			$itm->addCondition('item_id',$m->getField('id'));
 			return $itm->sum('quantity');
 
