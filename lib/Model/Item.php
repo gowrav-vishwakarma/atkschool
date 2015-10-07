@@ -46,6 +46,12 @@ class Model_Item extends Model_Table{
 				return $m->refSQL("Item_Issue")->sum('quantity');
 		})->caption('Total Issue Qty');
 
+		$this->addExpression("current_Issued")->set(function ($m,$q){
+			$issue=$m->add('Model_Item_Issue');
+			$issue->addCondition('session_id',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$issue->addCondition('item_id',$m->getField('id'));
+				return $issue->sum('quantity');
+		})->caption('current Year Issue Qty');
 
 
 

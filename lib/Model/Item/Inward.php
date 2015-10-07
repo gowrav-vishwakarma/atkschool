@@ -17,7 +17,7 @@ class Model_Item_Inward extends Model_Table{
 
 		$this->addHook('beforeSave',$this);
 
-		// $this->add('dynamic_model/Controller_AutoCreator');
+		$this->add('dynamic_model/Controller_AutoCreator');
 	}
 
 	function beforeSave(){

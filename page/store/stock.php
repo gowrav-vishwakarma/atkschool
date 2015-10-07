@@ -123,7 +123,7 @@ class page_store_stock extends Page {
 
 		});
 
-		$this->grid->setModel($item,array('name','LastPurchasePrice','inward','outward','TotalIssued','TotalInwardStock','previous_stocks_inword','previous_stocks_outword'));
+		$this->grid->setModel($item,array('name','LastPurchasePrice','inward','outward','TotalIssued','current_Issued','TotalInwardStock','previous_stocks_inword','previous_stocks_outword'));
 		
 		$this->grid->addMethod('format_stock',function($g,$field){
 			$g->current_row[$field] = $g->model['previous_stocks_inword'] - $g->model['previous_stocks_outword'];
