@@ -133,20 +133,20 @@ class page_store_stock extends Page {
 			// $g->current_row[$field]=$t_qty;
 		});
 
-
-
-		$this->grid->addColumn('stock','previouse_stock');
-
-		$this->grid->addMethod('format_totalqty',function($g,$field){
-			$g->current_row[$field]=$g->current_row['TotalInwardStock'] + $g->current_row['previous_stocks_inword'] - $g->current_row['current_Issued'];
-		});
-		$this->grid->addColumn('totalqty','total_current_stock');
-	
 		$this->grid->addMethod('format_astock',function($g, $field){
 			$g->current_row[$field]=$g->current_row['previouse_stock'] + $g->current_row['TotalInwardStock'];
 
 		});
 		$this->grid->addColumn('astock','Total_Stock');
+
+
+		$this->grid->addColumn('stock','previouse_stock');
+
+		$this->grid->addMethod('format_totalqty',function($g,$field){
+			$g->current_row[$field]=$g->current_row['Total_Stock']- $g->current_row['current_Issued'];
+		});
+		$this->grid->addColumn('totalqty','total_current_stock');
+	
 
 		$this->grid->removeColumn('inward');
 		$this->grid->removeColumn('outward');
