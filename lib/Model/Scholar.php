@@ -13,6 +13,7 @@ class Model_Scholar extends Model_Table {
                 $this->addField('father_name')->mandatory("Required Field")->caption('Father`s Name')->display('hindi');
                 //$this->add("filestore/Field_Image","f_image")->caption('father Image');
 
+                $this->addField('efather_name')->mandatory("Required Field")->caption('Eng. Father`s Name ');
                 $this->addField('mother_name')->mandatory("Required Field")->caption('Mother`s Name')->display('hindi');                
                 //$this->add("filestore/Field_Image","m_image")->caption('Mother Image');
                 // $this->addField('guardian_name');
@@ -53,7 +54,7 @@ class Model_Scholar extends Model_Table {
 
                 $this->addHook('beforeDelete',$this);
                 $this->addHook('beforeSave',$this);
-
+                $this->add('dynamic_model/Controller_AutoCreator');
 
 	}
         function beforeSave(){

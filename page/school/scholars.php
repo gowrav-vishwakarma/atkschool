@@ -33,6 +33,7 @@ class page_school_scholars extends Page {
         $sc->addField('english_name','fname');
         $sc->addField('hindi_name','hname')->display('hindi');
         $sc->addField('sholar_father_name','father_name');
+        $sc->addField('sholar_father_name_english','efather_name');
         $sc->addField('mother_name');
         $sc->addField('guardian_name');
         $sc->addField('previouse_school_name')->display('hindi');
@@ -69,7 +70,7 @@ class page_school_scholars extends Page {
 
         if($crud->grid) $crud->grid->addColumn('sno','sno');
         
-        $crud->setModel($s,array('admission_date','scholar_no','english_name','hindi_name','sholar_father_name','mother_name'
+        $crud->setModel($s,array('admission_date','scholar_no','english_name','hindi_name','sholar_father_name','sholar_father_name_english','mother_name'
                 ,'guardian_name','previouse_school_name','previouse_class_name','dob','contact','student_image','p_address','sex','isActive',
                'leaving_date','category','class_id','ishostler','isScholared','bpl' ),array('fname','name','scholar_no','class','is_result_stop'));
 
