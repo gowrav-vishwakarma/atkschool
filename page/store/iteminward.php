@@ -32,6 +32,7 @@ class page_store_iteminward extends Page {
 		$v=$this->add('View')->setClass('atk-box ui-widget-content');
 		$this->api->stickyGET('bill_master_id');
 		$bill=$this->add('Model_Bill');
+		$current_sess=$this->add('Model_Sessions_Current')->tryLoadAny();
 		$bill->load($_GET['bill_master_id']);
 
 		$crud=$v->add('CRUD');
@@ -39,7 +40,9 @@ class page_store_iteminward extends Page {
 			$category_field=$crud->form->addField('dropdown','category')->addClass('hindi')->setEmptyText('Please Select');
 			$category_field->setModel('Model_Item_Category');
 		}
-		$crud->setModel($bill->ref('Item_Inward'));
+		$item_inward=$bill->ref('Item_Inward');
+		$item_inward->addCondition('session_id',$current_sess->id);
+		$crud->setModel($item_inward);
 		if($_GET['category']){
 			$crud->form->getElement('item_id')->getModel()->addCondition('category_id',$_GET['category']);
 		}

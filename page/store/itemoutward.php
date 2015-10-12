@@ -48,6 +48,8 @@ class page_store_itemoutward extends Page {
 			// $t=$this->add('Model_Item');
 
 			$ism=$this->add('Model_Item_Issue');
+			$current_sess=$this->add('Model_Sessions_Current')->tryLoadAny();
+			$ism->addCondition('session_id',$current_sess->id);
 			$ism->addCondition('student_id',$_GET['student_id']);
 			$ism->addCondition('month',$this->api->recall('issue_month'));
 			// $t->addCondition('is_stationory',1);
@@ -60,10 +62,11 @@ class page_store_itemoutward extends Page {
 				$ism->getElement('rate')->setvalueList($this->api->recall('rates_selected',array('-')));
 				
 			}
-			$crud->setModel($ism,null,array('sno','item','quantity','date','rate','amount','is_stationory'));
+			$crud->setModel($ism,null,array('sno','item','quantity','date','rate','amount','session','is_stationory'));
 			if($crud->form){
 				// Generate last date of selected month as per selected session
 				$cur_sesssion=$this->add('Model_Sessions_Current')->tryLoadAny();
+				// $ism->addCondition('session_id',$cur_sesssion->id);
 				$month=$this->api->recall('issue_month');
 				$year = ($month > (int)date('m',strtotime($cur_sesssion['end_date'])))? date('Y',strtotime($cur_sesssion['start_date'])) : date('Y',strtotime($cur_sesssion['end_date']));
 				// echo $month . " :: " . (int)date('m',strtotime($cur_sesssion['end_date']));
