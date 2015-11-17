@@ -54,7 +54,7 @@ class page_store_outward extends Page{
 		}
 		if($form->isSubmitted()){
 			$form->update();
-			$form->js(null,array($form->js()->reload(),$crud->js()->reload()))->univ()->successMessage('Inward Successfully')->closeDialog()->execute();
+			$form->js(null,array($form->js()->reload(),$crud->js()->reload()))->univ()->successMessage('Consume Successfully')->closeDialog()->execute();
 		}
 
 	}

@@ -14,7 +14,7 @@ class Model_Mesh_ItemConsume extends Model_Table{
 		$this->addField('quantity')->mandatory('quantity is Must To Select');
 		$this->addField('unit')->enum(array('Packet','Kg','Liter'))->mandatory('quantity is Must To Select');
 		$this->addField('date')->type('date')->defaultValue(date('Y-m-d'));
-		$this->addField('remarks')->type('text');
+		$this->addField('remarks')->type('text')->mandatory('Remarks is Required');
 		// $this->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 
 		$this->add('dynamic_model/Controller_AutoCreator');

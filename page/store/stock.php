@@ -28,33 +28,26 @@ class page_store_stock extends Page {
 
 	function handelMess(){
 		$item_mesh=$this->add('Model_Mesh_Item');
-		$item_mesh->addExpression('total_inward')->set(function($m,$q){
-			return $m->refSQL('Mesh_ItemInward')->sum('quantity');
-		})->caption('Inward Stock ( Current Stock)');
-
-		$item_mesh->addExpression('current_inward')->set(function($m,$q){
-			$itm=$m->add('Model_Mesh_ItemInward');
-			$itm->addCondition('session_id',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
-			$itm->addCondition('item_id',$q->getField('id'));
-			return $itm->sum('quantity');
+		$item_mesh->addExpression('previous_mesh_stocks_inword')->set(function($m,$q){
+			$mesh_itm_inward=$m->add('Model_Mesh_ItemInward');
+			$mesh_itm_inward->addCondition('session_id','<',(int)$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$mesh_itm_inward->addCondition('item_id',$q->getField('id'));
+			$t_qty=$mesh_itm_inward->sum('quantity');
+			return $t_qty;
 		});
 
-		$item_mesh->addExpression('previous_stock')->set(function($m,$q){
-			$itm=$m->add('Model_Mesh_ItemInward');
-			$itm->addCondition('session_id','<=',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
-			$itm->addCondition('item_id',$q->getField('id'));
+		$item_mesh->addExpression('previous_mesh_stocks_outword')->set(function($m,$q){
+			$consume = $m->add('Model_Mesh_ItemConsume');
+			$consume->addCondition('session_id','<',(int)$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$consume->addCondition('item_id',$q->getField('id'));
+			$i_qty = $consume->sum('quantity');
+			return $i_qty;
+		});
 
-			$itm_c=$m->add('Model_Mesh_ItemConsume');
-			$itm_c->addCondition('session_id','<=',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
-			$itm_c->addCondition('item_id',$q->getField('id'));
-
-			return '('.$itm->sum('quantity')/*-$itm_c->sum('quantity')*/.')';
-		})->caption('Last Year Remain Stock');
-
-
-		$item_mesh->addExpression('total_outward')->set(function($m,$q){
-			return $m->refSQL('Mesh_ItemConsume')->sum('quantity');
-		})->caption('Total Consume');
+		$this->grid->addMethod('format_prevstock',function($g,$field){
+			$g->current_row[$field] = $g->model['previous_mesh_stocks_inword'] - $g->model['previous_mesh_stocks_outword'];
+		});
+		$this->grid->addColumn('prevstock','previous_stock');
 
 		$item_mesh->addExpression("last_purchase_price")->set(function ($m,$q){
 			return $m->refSQL('Mesh_ItemInward')->dsql()->del('field')
@@ -62,28 +55,25 @@ class page_store_stock extends Page {
 		});
 
 		$this->grid->addMethod('format_tstock',function($g,$field){
-			$g->current_row[$field]=$g->current_row['total_inward']+$g->current_row['previous_stock'];
+			$g->current_row[$field]=$g->current_row['previous_stock'] + $g->current_row['TotalMeshInwardStock'];
 		});
+		$this->grid->addColumn('tstock','total_stock');
 
 		$this->grid->addMethod('format_ctstock',function($g,$field){
-			$g->current_row[$field]=$g->current_row['total_stock']-$g->current_row['total_outward'];
+			$g->current_row[$field]=$g->current_row['total_stock']- $g->current_row['current_consume'];
 		});
-		$this->grid->setModel($item_mesh,array('name','previous_stock','last_purchase_price','total_inward','current_inward','total_outward'));
 		$this->grid->addColumn('ctstock','current_stock') ;
 
-		// $this->grid->addMethod('format_prevstock',function($g,$field){
+		$this->grid->setModel($item_mesh,array('name','last_purchase_price','TotalMeshInwardStock','TotalConsume','current_consume','previous_mesh_stocks_inword','previous_mesh_stocks_outword'));
 
-		// 	$g->current_row[$field]=$g->current_row['last_year_remain_stock'];
-		// });
-
-
-		// $this->addColumn('')
-		$this->grid->addColumn('tstock','total_stock');
-		// $this->grid->addColumn('prevstock','last_year_remain_stock');
-		// $this->grid->removeColumn('total_inward');
 		$this->grid->removeColumn('current_inward');
-		// $this->grid->removeColumn('current_stock');
-		 $order=$this->grid->addOrder()->move('total_stock','after','total_inward')->now();
+		$this->grid->removeColumn('TotalConsume');
+		$this->grid->removeColumn('previous_mesh_stocks_inword');
+		$this->grid->removeColumn('previous_mesh_stocks_outword');
+		 $order=$this->grid->addOrder();
+		 $order->move('total_stock','after','TotalMeshInwardStock')->now();
+		 $order->move('current_stock','after','current_consume')->now();
+		 $order->move('previous_stock','after','last_purchase_price')->now();
 		
 	}
 
@@ -106,7 +96,7 @@ class page_store_stock extends Page {
 
 		$item->addExpression('previous_stocks_inword')->set(function($m,$q){
 			$itm=$m->add('Model_Item_Inward');
-			$itm->addCondition('session_id','<',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$itm->addCondition('session_id','<',(int)$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 			$itm->addCondition('item_id',$q->getField('id'));
 
 			$t_qty=$itm->sum('quantity');/*-$itm_c->sum('quantity')*//*.*//*')';*/
@@ -116,7 +106,7 @@ class page_store_stock extends Page {
 
 		$item->addExpression('previous_stocks_outword')->set(function($m,$q){
 			$issue = $m->add('Model_Item_Issue');
-			$issue->addCondition('session_id','<',$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$issue->addCondition('session_id','<',(int)$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 			$issue->addCondition('item_id',$q->getField('id'));
 			$i_qty = $issue->sum('quantity');
 			return $i_qty;
@@ -132,6 +122,7 @@ class page_store_stock extends Page {
 			// // return $t_qty
 			// $g->current_row[$field]=$t_qty;
 		});
+		$this->grid->addColumn('stock','previouse_stock');
 
 		$this->grid->addMethod('format_astock',function($g, $field){
 			$g->current_row[$field]=$g->current_row['previouse_stock'] + $g->current_row['TotalInwardStock'];
@@ -140,7 +131,6 @@ class page_store_stock extends Page {
 		$this->grid->addColumn('astock','Total_Stock');
 
 
-		$this->grid->addColumn('stock','previouse_stock');
 
 		$this->grid->addMethod('format_totalqty',function($g,$field){
 			$g->current_row[$field]=$g->current_row['Total_Stock']- $g->current_row['current_Issued'];

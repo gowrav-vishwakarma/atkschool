@@ -62,7 +62,8 @@ class page_hostel_attendancereport extends Page{
 	            	count(s.id) total_students,
 	            	sm.fname student_name,
 	            	sm.hname student_name_hindi,
-	            	sm.father_name
+	            	sm.father_name,
+	            	sm.efather_name eng_father_name
 								FROM 
 								`student` s 
 									join  hostel_allotement hm on s.id=hm.student_id 
@@ -95,6 +96,7 @@ class page_hostel_attendancereport extends Page{
 				$grid->addColumn('student_name');
 				$grid->addColumn('hindi','student_name_hindi');
 				$grid->addColumn('hindi','father_name');
+				$grid->addColumn('hindi','eng_father_name');
 			$grid->addColumn('text','total_students');
 			$grid->addColumn('text','present');
 			$grid->addFormatter('present','attendance2');
