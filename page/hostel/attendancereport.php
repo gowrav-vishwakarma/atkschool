@@ -94,9 +94,9 @@ class page_hostel_attendancereport extends Page{
 				$grid->addColumn('text','class_name');
 			if(in_array("s.id", $group_by))
 				$grid->addColumn('student_name');
+				$grid->addColumn('hindi','eng_father_name');
 				$grid->addColumn('hindi','student_name_hindi');
 				$grid->addColumn('hindi','father_name');
-				$grid->addColumn('hindi','eng_father_name');
 			$grid->addColumn('text','total_students');
 			$grid->addColumn('text','present');
 			$grid->addFormatter('present','attendance2');
