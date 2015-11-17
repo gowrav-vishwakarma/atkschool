@@ -27,6 +27,17 @@ class Model_Mesh_Item extends Model_Item{
 			$issue->addCondition('item_id',$m->getField('id'));
 				return $issue->sum('quantity');
 		})->caption('current Year Consume Qty');
+
+		$this->addExpression('consume')->set(function($m,$q){
+			$itm=$m->add('Model_Consume');
+			// $itm->addCondition('session_id','<',(int)$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$itm->addCondition('item_id',$q->getField('id'));
+
+			$t_qty=$itm->sum('quantity');/*-$itm_c->sum('quantity')*//*.*//*')';*/
+			return $t_qty;
+
+		});
+
 		
 		
 	}

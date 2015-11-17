@@ -60,11 +60,16 @@ class page_store_stock extends Page {
 		$this->grid->addColumn('tstock','total_stock');
 
 		$this->grid->addMethod('format_ctstock',function($g,$field){
-			$g->current_row[$field]=$g->current_row['total_stock']- $g->current_row['current_consume'];
+			$g->current_row[$field]=$g->current_row['total_stock']- $g->current_row['used_stock'];
 		});
 		$this->grid->addColumn('ctstock','current_stock') ;
 
-		$this->grid->setModel($item_mesh,array('name','last_purchase_price','TotalMeshInwardStock','TotalConsume','current_consume','previous_mesh_stocks_inword','previous_mesh_stocks_outword'));
+		$this->grid->addMethod('format_usestock',function($g,$field){
+			$g->current_row[$field]=$g->current_row['current_consume']+ $g->current_row['consume'];
+		});
+		$this->grid->addColumn('usestock','used_stock');
+
+		$this->grid->setModel($item_mesh,array('name','last_purchase_price','TotalMeshInwardStock','TotalConsume','current_consume','consume','previous_mesh_stocks_inword','previous_mesh_stocks_outword'));
 
 		$this->grid->removeColumn('current_inward');
 		$this->grid->removeColumn('TotalConsume');
@@ -72,8 +77,10 @@ class page_store_stock extends Page {
 		$this->grid->removeColumn('previous_mesh_stocks_outword');
 		 $order=$this->grid->addOrder();
 		 $order->move('total_stock','after','TotalMeshInwardStock')->now();
-		 $order->move('current_stock','after','current_consume')->now();
 		 $order->move('previous_stock','after','last_purchase_price')->now();
+		 $order->move('consume','after','current_consume')->now();
+		 $order->move('used_stock','after','consume')->now();
+		 $order->move('current_stock','after','used_stock')->now();
 		
 	}
 
@@ -104,6 +111,8 @@ class page_store_stock extends Page {
 
 		});
 
+		
+
 		$item->addExpression('previous_stocks_outword')->set(function($m,$q){
 			$issue = $m->add('Model_Item_Issue');
 			$issue->addCondition('session_id','<',(int)$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
@@ -113,7 +122,7 @@ class page_store_stock extends Page {
 
 		});
 
-		$this->grid->setModel($item,array('name','LastPurchasePrice','inward','outward','TotalIssued','current_Issued','TotalInwardStock','previous_stocks_inword','previous_stocks_outword'));
+		$this->grid->setModel($item,array('name','LastPurchasePrice','inward','outward','TotalIssued','current_Issued','consume','TotalInwardStock','previous_stocks_inword','previous_stocks_outword'));
 		
 		$this->grid->addMethod('format_stock',function($g,$field){
 			$g->current_row[$field] = $g->model['previous_stocks_inword'] - $g->model['previous_stocks_outword'];
@@ -131,11 +140,16 @@ class page_store_stock extends Page {
 		$this->grid->addColumn('astock','Total_Stock');
 
 
+		$this->grid->addMethod('format_usestock',function($g,$field){
+			$g->current_row[$field]=$g->current_row['current_Issued']+ $g->current_row['consume'];
+		});
+		$this->grid->addColumn('usestock','used_stock');
 
 		$this->grid->addMethod('format_totalqty',function($g,$field){
-			$g->current_row[$field]=$g->current_row['Total_Stock']- $g->current_row['current_Issued'];
+			$g->current_row[$field]=$g->current_row['Total_Stock']- $g->current_row['used_stock'];
 		});
 		$this->grid->addColumn('totalqty','total_current_stock');
+
 	
 
 		$this->grid->removeColumn('inward');
@@ -149,7 +163,9 @@ class page_store_stock extends Page {
    		$order->move('TotalInwardStock','after','previouse_stock')->now();
    		$order->move('Total_Stock','after','TotalInwardStock')->now();
    		$order->move('current_Issued','after','Total_Stock')->now();
-   		$order->move('total_current_stock','after','current_Issued')->now();
+   		$order->move('consume','after','current_Issued')->now();
+   		$order->move('used_stock','after','consume')->now();
+   		$order->move('total_current_stock','after','used_stock')->now();
   		// $$order->move($this->getElement('customer_email'),'first');
 
 	}
