@@ -5,13 +5,10 @@ class page_masters_fee extends Page{
 		$acl=$this->add('xavoc_acl/Acl');
 		$crud=$this->add('CRUD');
 		$fees=$this->add('Model_Fee');
-		// throw new Exception($session['id'], 1);
-		
+		$fees->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 		$crud->setModel($fees);
 
 		if($crud->grid){
-		// $session=$this->add('Model_Sessions_Current');
-		// $fees->addCondition('session_id',$session->id);
 			$crud->grid->addColumn('expander','classassociation','ClassAssociation');
 	}
 }
