@@ -73,7 +73,7 @@ class Model_FeeClassMapping extends Model_Table{
 			
 
 			foreach($c->ref('Students_Current') as $junk){
-				$fa=$this->add('Model_FeeClassMapping');
+				$fa=$this->add('Model_Fees_Applicable');
 				$fa->addCondition('student_id',$junk['id']);
 				$fa->addCondition('fee_class_mapping_id',$this->id);
 				$fa->tryLoadAny();
