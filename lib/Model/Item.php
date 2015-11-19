@@ -35,7 +35,7 @@ class Model_Item extends Model_Table{
 			$itm->addCondition('item_id',$m->getField('id'));
 			return $itm->sum('quantity');
 
-		})->caption('Inward Stock (current year)');
+		})->caption('Inward Stock (Total)');
 
 		
 

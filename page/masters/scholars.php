@@ -30,12 +30,12 @@ class page_masters_scholars extends Page {
 				$crud->grid->addQuickSearch( array( 'fname', 'scholar_no','category' ) );
 			}
 
+			$st=$sc->leftJoin( 'student.scholar_id', 'id' );
+			$st->hasOne( 'Class', 'class_id' );
+			$st->addField( 'session_id' );
 			
-			if($crud->grid){
-				$st=$sc->leftJoin( 'student.scholar_id', 'id' );
-				$st->hasOne( 'Class', 'class_id' );
-				$st->addField( 'session_id' );
-			}
+			// if($crud->grid){
+			// }
 
 			if($_GET['session']){
 				$this->api->stickyGET('session');

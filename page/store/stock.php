@@ -44,10 +44,19 @@ class page_store_stock extends Page {
 			return $i_qty;
 		});
 
+		// $item_mesh->addExpression('unit')->set(function($m,$q){
+		// 	$iteminwrad = $m->add('Model_Mesh_ItemInward');
+		// 	$iteminwrad->addCondition('item_id',$q->getField('id'));
+		// 	$iteminwrad->load('id');
+		// 	return $iteminwrad->getField('unit');
+		// });
+
+
 		$this->grid->addMethod('format_prevstock',function($g,$field){
 			$g->current_row[$field] = $g->model['previous_mesh_stocks_inword'] - $g->model['previous_mesh_stocks_outword'];
 		});
 		$this->grid->addColumn('prevstock','previous_stock');
+
 
 		$item_mesh->addExpression("last_purchase_price")->set(function ($m,$q){
 			return $m->refSQL('Mesh_ItemInward')->dsql()->del('field')
