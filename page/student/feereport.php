@@ -4,7 +4,12 @@ class page_student_feereport extends Page{
 		// parent::init();
 
 		$fname_array = array('fname');
-		
+
+		$this->api->stickyGET('filter');
+		$this->api->stickyGET('student');
+		$this->api->stickyGET('class');
+		$this->api->stickyGET('status');
+
 		$class=$this->add('Model_Class');
 		$student=$this->add('Model_Students_Current');
 
@@ -32,6 +37,9 @@ class page_student_feereport extends Page{
 
 		$fee_applicable=$this->add('Model_Fees_Applicable');
 		$fee_applicable_join_student=$fee_applicable->join('student.id','student_id');
+		$fee_applicable_join_student->addField('session_id');
+
+		$fee_applicable->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 		$fee_applicable_join_student->hasOne('Class','class_id');
 		// $fee_applicable_join_student->hasOne('Student','student_id');
 		$scholar=$fee_applicable_join_student->join('scholars_master.id','scholar_id');
@@ -58,7 +66,6 @@ class page_student_feereport extends Page{
 
 		$grid->setModel($fee_applicable,array_merge($fname_array,array('FeeName','amount','paid','due')))	;
 		$grid->addPaginator(10);
-
 		$grid->addColumn('expander','details','Deposite Details');
 
 		if($form->isSubmitted()){
