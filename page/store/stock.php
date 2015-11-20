@@ -44,12 +44,10 @@ class page_store_stock extends Page {
 			return $i_qty;
 		});
 
-		// $item_mesh->addExpression('unit')->set(function($m,$q){
-		// 	$iteminwrad = $m->add('Model_Mesh_ItemInward');
-		// 	$iteminwrad->addCondition('item_id',$q->getField('id'));
-		// 	$iteminwrad->load('id');
-		// 	return $iteminwrad->getField('unit');
-		// });
+		$item_mesh->addExpression('unit')->set(function($m,$q){
+			return $m->refSQL('Mesh_ItemInward')->dsql()->del('field')
+												->field('unit')->limit(1)->order('id','desc');
+		});
 
 
 		$this->grid->addMethod('format_prevstock',function($g,$field){
@@ -78,7 +76,7 @@ class page_store_stock extends Page {
 		});
 		$this->grid->addColumn('usestock','used_stock');
 
-		$this->grid->setModel($item_mesh,array('name','last_purchase_price','TotalMeshInwardStock','TotalConsume','current_consume','consume','previous_mesh_stocks_inword','previous_mesh_stocks_outword'));
+		$this->grid->setModel($item_mesh,array('name','unit','last_purchase_price','TotalMeshInwardStock','TotalConsume','current_consume','consume','previous_mesh_stocks_inword','previous_mesh_stocks_outword'));
 
 		$this->grid->removeColumn('current_inward');
 		$this->grid->removeColumn('TotalConsume');
