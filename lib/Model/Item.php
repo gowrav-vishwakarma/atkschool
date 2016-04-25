@@ -35,10 +35,9 @@ class Model_Item extends Model_Table{
 			$itm->addCondition('item_id',$m->getField('id'));
 			return $itm->sum('quantity');
 
-		})->caption('Inward Stock (current year)');
+		})->caption('Inward Stock (Total)');
 
-
-
+		
 
 		// $this->debug();
 
@@ -53,6 +52,15 @@ class Model_Item extends Model_Table{
 				return $issue->sum('quantity');
 		})->caption('current Year Issue Qty');
 
+		$this->addExpression('consume')->set(function($m,$q){
+			$itm=$m->add('Model_Consume');
+			// $itm->addCondition('session_id','<',(int)$m->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+			$itm->addCondition('item_id',$q->getField('id'));
+
+			$t_qty=$itm->sum('quantity');/*-$itm_c->sum('quantity')*//*.*//*')';*/
+			return $t_qty;
+
+		});
 
 
 		$this->addExpression("instock")->set('id')->display(array("grid"=>'instock'));

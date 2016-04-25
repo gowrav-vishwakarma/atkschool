@@ -11,7 +11,7 @@ class page_user_management extends \Page {
 
 	function page_index(){
 		$this->crud=$this->add('CRUD');
-		$this->crud->setModel('xavoc_acl/ACLUser');
+		$this->crud->setModel('xavoc_acl/ACLUser',array('username','password','name','user_image_id'),array('username','password','name','image_url'));
 
 		if($this->crud->grid){
 			$this->crud->grid->addColumn('Expander','acls');

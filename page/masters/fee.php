@@ -4,7 +4,9 @@ class page_masters_fee extends Page{
 	function page_index(){
 		$acl=$this->add('xavoc_acl/Acl');
 		$crud=$this->add('CRUD');
-		$crud->setModel('Fee');
+		$fees=$this->add('Model_Fee');
+		$fees->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
+		$crud->setModel($fees);
 
 		if($crud->grid){
 			$crud->grid->addColumn('expander','classassociation','ClassAssociation');

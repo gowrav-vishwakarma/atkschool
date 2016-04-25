@@ -57,12 +57,10 @@ class page_student_fee extends Page{
 
 		
 		$this->add('Button','add_fast_fee')->setLabel('Very Fast Deposit')->js('click',$this->js()->univ()->frameURL('Fee Deposit (Very Fast method)',$this->api->url('./new_fast',array('student_id'=>$_GET['student_id']))));
-
 		$this->add('Button','add_fee')->setLabel('Fast Deposit')->js('click',$this->js()->univ()->frameURL('Fee Deposit (Fast/auto method)',$this->api->url('./new',array('student_id'=>$_GET['student_id']))));
-		
 		$this->add('Button','add_fee_detail')->setLabel('Detailed Deposit')->js('click',$this->js()->univ()->frameURL('Fee Deposit (Detailed)',$this->api->url('./new_detailed',array('student_id'=>$_GET['student_id']))));
-		
 		$this->add('Button','fee_manage')->setLabel('Manage Deposit Fees')->js('click',$this->js()->univ()->frameURL('Manage Deposit Fees',$this->api->url('./manage_deposit',array('student_id'=>$_GET['student_id']))));
+		$this->add('Button','reset')->setLabel('Reset All')->js('click',$this->js()->univ()->frameURL('Reset Deposit Fees',$this->api->url('./reset_deposit',array('student_id'=>$_GET['student_id']))));
 		
 		$crud=$this->add('CRUD',array('allow_add'=>false,'allow_del'=>false));
 		
@@ -76,6 +74,33 @@ class page_student_fee extends Page{
 			$crud->grid->addTotals(array('amount','paid','due'));
 			$crud->grid->js('reload',$crud->grid->js()->reload());
 		}
+
+
+	}
+
+	function page_deposit_reset_deposit(){
+
+		$student_id = $this->api->stickyGET('student_id');
+		
+		$model = $this->add('Model_Fees_Deposit');
+		$model->join('fee_applicable.id','fee_applicable_id')
+			->addField('student_id');
+		$model->addCondition('student_id',$_GET['student_id']);
+
+		$fees_deposite_array=array();
+
+		foreach ($model as $junk) {
+			$fees_deposite_array[]=$model->id;
+		}
+
+		foreach ($fees_deposite_array as $key => $value) {
+			$temp = $this->add('Model_Fees_Deposit')->load($value);
+			$temp['paid'] = 0;
+			$temp->save();
+		}
+
+		$this->add('View_Info')->set('Deposite Fees Reset SuccessFully');
+		// $this->js('true')->univ()->errorMessage('All Deposite Fees Reset SuccessFully');
 
 
 	}

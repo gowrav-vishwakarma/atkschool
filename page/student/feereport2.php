@@ -44,6 +44,8 @@ class page_student_feereport2 extends Page{
 		$fd_join_fa->addField('student_id');
 
 		$fd_join_fa_student=$fd_join_fa->join('student.id','student_id');
+		$fd_join_fa_student->addField('session_id');
+		$fee_deposit->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 		$fd_join_fa_student->hasOne('Class','class_id');
 		$scholar=$fd_join_fa_student->join('scholars_master.id','scholar_id');
 		$scholar->addField('fname');

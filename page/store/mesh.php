@@ -47,6 +47,7 @@ function page_inwardDetail(){
 	$crud=$this->add('CRUD',array('allow_add'=>false));
 	$mi=$this->add('Model_Mesh_ItemInward');
 	$mi->addCondition('party_id',$_GET['party_master_id']);
+	$mi->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 	$mi->_dsql()->order('id','desc');
 	$mi->getElement('session_id')->system(true);
 
@@ -65,7 +66,7 @@ function page_inwardDetail(){
 	$crud->grid->addPaginator(10);
 	$crud->grid->addFormatter('item','hindi');
 	$crud->grid->addFormatter('party','hindi');
-	$crud->grid->removeColumn('session');
+	// $crud->grid->removeColumn('session');
 	}
 
 	if($crud->form){
