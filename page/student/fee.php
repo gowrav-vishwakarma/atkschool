@@ -57,9 +57,13 @@ class page_student_fee extends Page{
 
 		
 		$this->add('Button','add_fast_fee')->setLabel('Very Fast Deposit')->js('click',$this->js()->univ()->frameURL('Fee Deposit (Very Fast method)',$this->api->url('./new_fast',array('student_id'=>$_GET['student_id']))));
+
 		$this->add('Button','add_fee')->setLabel('Fast Deposit')->js('click',$this->js()->univ()->frameURL('Fee Deposit (Fast/auto method)',$this->api->url('./new',array('student_id'=>$_GET['student_id']))));
+		
 		$this->add('Button','add_fee_detail')->setLabel('Detailed Deposit')->js('click',$this->js()->univ()->frameURL('Fee Deposit (Detailed)',$this->api->url('./new_detailed',array('student_id'=>$_GET['student_id']))));
+		
 		$this->add('Button','fee_manage')->setLabel('Manage Deposit Fees')->js('click',$this->js()->univ()->frameURL('Manage Deposit Fees',$this->api->url('./manage_deposit',array('student_id'=>$_GET['student_id']))));
+		
 		$crud=$this->add('CRUD',array('allow_add'=>false,'allow_del'=>false));
 		
 		$crud->setModel($fa,array('fee_class_mapping','amount','paid','due','remarks'));
@@ -184,7 +188,7 @@ class page_student_fee extends Page{
 		if($_GET['feehead_id']){
 		$fa=$this->add('Model_Fees_Applicable');
 		$fa->addCondition('student_id',$_GET['student_id']);
-		$fa->addCondition('feehead_id',$_GET['feehead_id']);
+		// $fa->addCondition('feehead_id',$_GET['feehead_id']);
 		$total_due_fee = $fa->sum('due')->getOne();
 		$field_amount->set($total_due_fee);	
 		}

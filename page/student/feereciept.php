@@ -5,8 +5,10 @@ class page_student_feereciept extends Page{
 		$acl=$this->add('xavoc_acl/Acl');
 		
 		$form=$this->add('Form',null,null,array('form_horizontal'));
-
-		$form->addField('dropdown','class');
+		$class=$this->add('Model_Class');
+		$class_field=$form->addField('dropdown','class');
+		$class_field->setEmptyText('Please Select Class');
+		$class_field->setModel($class);
 	}
 
 }
