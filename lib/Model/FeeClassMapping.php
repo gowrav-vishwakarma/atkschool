@@ -15,9 +15,6 @@ class Model_FeeClassMapping extends Model_Table{
 			return $m->refSQL('fee_id')->fieldQuery('name');
 		});
 
-		$this->addExpression('feehead_id')->set(function($m,$q){
-			return $m->refSQL('fee_id')->fieldQuery('feehead_id');
-		});
 
 		$this->addHook('beforeSave',$this);
 		$this->addHook('afterSave',$this);

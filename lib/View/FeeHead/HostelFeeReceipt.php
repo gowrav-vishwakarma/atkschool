@@ -19,7 +19,7 @@ class View_FeeHead_HostelFeeReceipt extends View{
 		$class_model=$this->add('Model_Class');
 		$class_name=$class_model->load($class)->get('class_name');
 
-		$this->template->trySet('student_name',$student_model['fname']);
+		$this->template->trySet('student_name',$student_model['name']);
 		$this->template->trySet('father_name',$student_model['father_name']);
 		$this->template->trySetHTML('amount',$amount);
 		$this->template->trySetHTML('date',date('d-M-Y',strtotime($date)));

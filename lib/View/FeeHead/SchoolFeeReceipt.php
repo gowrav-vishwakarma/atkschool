@@ -11,6 +11,7 @@ class View_FeeHead_SchoolFeeReceipt extends View{
 		$class=$_GET['class'];
 		$date=$_GET['date'];
 		$amount=$_GET['amount'];
+		$receipt_no=$_GET['receipt_no'];
 		
 		$student_model=$this->add('Model_Student');
 		$student_model->load($student);
@@ -18,12 +19,13 @@ class View_FeeHead_SchoolFeeReceipt extends View{
 		$class_model=$this->add('Model_Class');
 		$class_name=$class_model->load($class)->get('class_name');
 
-		$this->template->trySet('student_name',$student_model['fname']);
+		$this->template->trySet('student_name',$student_model['name']);
 		$this->template->trySet('father_name',$student_model['father_name']);
 		$this->template->trySetHTML('amount',$amount);
 		$this->template->trySetHTML('date',date('d-M-Y',strtotime($date)));
 		$this->template->trySetHTML('class',$class_name);
 		$this->template->trySetHTML('fee_head',$feehead);
+		$this->template->trySetHTML('receipt_no',$receipt_no);
 	}
 
 	function defaultTemplate(){

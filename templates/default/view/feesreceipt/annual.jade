@@ -1,38 +1,38 @@
 div(id="{$_name}" class="hindi  " style="width:50% font-size:15px;")
-	//- <link rel="stylesheet" type="text/css" href="templates/default/css/atk-main.css">
+	<link rel="stylesheet" type="text/css" href="templates/default/css/atk-main.css">
 	<link rel="stylesheet" type="text/css" href="templates/default/css/epan.css">
 	div(style="border:1px solid black;width:50%")
 		table(style="")
 			tr
 				td
-					img(src="logo.png")
-				td(colspan="6")
-					h3(align="center") बाल विनय मन्दिर उच्च माध्यमिक विद्यालय 
+					img(src="templates/default/images/1logo.png")
+				td(colspan="2")
+					h3(align="left") बाल विनय मन्दिर उच्च माध्यमिक विद्यालय 
 					h5(align="center") J-11 , हरिदासजी की मगरी , उदयपुर (राज)
 					br
 			tr(align="center")
 				td()
-					| No____________
+					| रिसीप्ट  न. &&&&&&&&&&<?$receipt_no?>
 				td(style="border:1px solid black")
-					| &nbsp; Receipt &nbsp;&nbsp;
-				td
+					| &nbsp; रसीद &nbsp;&nbsp;
+				td(class="english")
 					| दिनांक : <?$date?>
 					br
 					br
 
 			tr(align="center")
 				td(colspan="6" class=" hindi")
-					| छात्र का नाम _____<?$student_name?>______________________________________
+					| छात्र का नाम &&&&&<?$student_name?>&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 					br		
-					|पिता का नाम ___<?$father_name?>___________________________________________
+					|पिता का नाम &&&<?$father_name?>&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 					br
-					|कक्षाः___<?$class?>__________________________शब्दों में:___<?$amount?>________________________
+					|कक्षाः&&&<?$class?>&&&&&&&&&&&&&&&&&&&&&&&&&&शब्दों में:&&&<?$amount?>&&&&&&&&&&&&&&&&&
 					br
-					| Annual Fees/etc_____<?$fee_head?>_____________________Thank You
+					| वार्षिक शुल्क / अन्य &&&&&&&&&&&&&&&&&&&&&&&&&&&nbsp;सहधन्याद प्राप्त किये
 
 			tr(align="center")
 				td(align="left")
 					| &#x20B9; :  <?$amount?>
 				td(colspan="6" align="right")
-					| Receiver Signature			 	
+					| ह प्राप्त कर्ता			 	
 
