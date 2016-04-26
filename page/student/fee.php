@@ -54,6 +54,9 @@ class page_student_fee extends Page{
 		$this->api->stickyGET('student_id');
 		$fa=$this->add('Model_Fees_Applicable');
 		$fa->addCondition('student_id',$_GET['student_id']);
+		$feeclassmap_j=$fa->join('fee_class_mapping.id','fee_class_mapping_id');
+		$feeclassmap_j->addField('session_id');
+		$fa->addCondition('session_id',$this->add('Model_Sessions_Current')->tryLoadAny()->get('id'));
 
 		
 		$this->add('Button','add_fast_fee')->setLabel('Very Fast Deposit')->js('click',$this->js()->univ()->frameURL('Fee Deposit (Very Fast method)',$this->api->url('./new_fast',array('student_id'=>$_GET['student_id']))));
@@ -64,7 +67,7 @@ class page_student_fee extends Page{
 		
 		$crud=$this->add('CRUD',array('allow_add'=>false,'allow_del'=>false));
 		
-		$crud->setModel($fa,array('fee_class_mapping','amount','paid','due','remarks'));
+		$crud->setModel($fa,array('fee_class_mapping','session_id','amount','paid','due','remarks'));
 		
 		if($crud->grid){
 			$crud->grid->setFormatter('amount','number');
@@ -252,8 +255,8 @@ class page_student_fee extends Page{
 					$fee_app=$this->add("Model_Fees_Applicable");
 					$fee_app->addCondition('fee_class_mapping_id',$fee_class_map->id);
 					$fee_app->addCondition('student_id',$student->id);
-					// $fee_app->debug();
 					$fee_app->tryLoadAny();
+					// $fee_app->debug();
 					if(!$fee_class_map->loaded()) throw $this->exception("Somthing done Wrong with this entry, Of particluar student");
 
 					$amount_for_this_fee = ($fee_app['due'] >= $amount_to_adjust)? $amount_to_adjust: $fee_app['due'];
@@ -262,6 +265,8 @@ class page_student_fee extends Page{
 					// Add deposite row
 					// substract from this feeapp due 
 					// recalculate 
+
+					
 
 					if($amount_for_this_fee == 0 ) continue;
 

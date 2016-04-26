@@ -3,7 +3,7 @@ class Model_Fees_Applicable extends Model_Table{
 	var $table="fee_applicable";
 	function init(){
 		parent::init();
-
+		
 		$this->hasOne('Student','student_id');
 		$this->hasOne('FeeClassMapping','fee_class_mapping_id')->caption('Fee Applicable');
 		// $this->hasOne('Fee','fee_id');
@@ -24,9 +24,10 @@ class Model_Fees_Applicable extends Model_Table{
 			// return $m->dsql()->expr('amount - paid');
 		});
 
-		$this->addExpression('name_xyz')->set(function($m,$q){
-			return $m->api->db->dsql()->table('fee')->field('name')->where('feehead_id',$m->refSQL('fee_class_mapping_id')->fieldQuery('feehead_id'))->limit(1);
-		});
+		// $this->addExpression('name_xyz')->set(function($m,$q){
+		// 	return $m->api->db->dsql()->table('fee')->field('name')->where('feehead_id',$m->refSQL('fee_class_mapping_id')->fieldQuery('feehead_id'))->limit(1);
+		// 	throw new \Exception("Error Processing Request", 1);
+		// });
 		
 		$this->addHook('beforeSave',$this);
 		$this->addHook('beforeDelete',$this);

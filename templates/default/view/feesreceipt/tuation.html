@@ -1,27 +1,30 @@
 
-<div id="{$_name}">
-  <table border="1">
-    <tr>
-      <td>R/j No. 31/87,88</td>
-      <td>(Rajasthan Sarkar Dwara Manyta Prapat)	</td>
-    </tr>
-    <tr>
-      <td><img src="logo.png"/></td>
-      <td>
-        <h2>| Bal Vinay Mandir</h2><span>| J-11 Haridas Ji Mangri, Udaipur</span>
-      </td>
-    </tr>
-    <tr>
-      <td>No</td>
-      <td>Tuation fees Receipt</td>
-      <td>Date</td>
-    </tr>
-    <tr>
-      <td>Student Name ____________________________________________________<br/>Father Name ___________________________________class_______________<br/>Tuation fees________________________in Word_________________________<br/>__________________________Thank You</td>
-    </tr>
-    <tr>
-      <td>Amount</td>
-      <td>Receiver Signature			 	</td>
-    </tr>
-  </table>
+<div id="{$_name}" style="width:50% font-size:15px;" class="hindi  "><link rel="stylesheet" type="text/css" href="templates/default/css/epan.css">
+  <div style="border:1px solid black;width:50%">
+    <table style="">
+      <tr>
+        <td>रजि. नः 31/87-88</td>
+        <td colspan="6">(Rajasthan Sarkar Dwara Manyta Prapat)	</td>
+      </tr>
+      <tr>
+        <td><img src="logo.png"/></td>
+        <td colspan="6">
+          <h3 align="center">बाल विनय मन्दिर उच्च माध्यमिक विद्यालय </h3>
+          <h5 align="center">J-11 , हरिदासजी की मगरी , उदयपुर (राज)</h5><br/>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>No____________</td>
+        <td style="border:1px solid black">Tuation fees Receipt</td>
+        <td>दिनांक : <?$date?><br/><br/></td>
+      </tr>
+      <tr align="center">
+        <td colspan="6" class=" hindi">छात्र का नाम _____<?$student_name?>________________________________<br/>पिता का नाम ___<?$father_name?>___________________________________________<br/>कक्षाः___<?$class?>____________माह_____________शब्दों में:___________________________<br/>__________________________Thank You</td>
+      </tr>
+      <tr align="center">
+        <td align="left">&#x20B9; :  <?$amount?></td>
+        <td colspan="6" align="right">Receiver Signature			 	</td>
+      </tr>
+    </table>
+  </div>
 </div>

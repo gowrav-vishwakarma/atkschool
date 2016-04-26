@@ -15,6 +15,11 @@ class Model_Fees_Deposit extends Model_Table{
 
 		$this->addHook('beforeSave',$this);
 		$this->addHook('beforeDelete',$this);
+
+		$this->addExpression('total_amount')->set(function ($m,$q){
+			return $q->expr('sum(paid)');
+		})->caption('Amount');
+
 	}
 
 

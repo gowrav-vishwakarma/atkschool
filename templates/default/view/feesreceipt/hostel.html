@@ -1,23 +1,26 @@
 
-<div id="{$_name}" style="color:yellow">
-  <table border="1">
-    <tr>
-      <td><img src="logo.png"/></td>
-      <td>
-        <h2>| Bal Vinay Mandir</h2><span>| Haridas Ji Mangri, Udaipur</span>
-      </td>
-    </tr>
-    <tr>
-      <td>No</td>
-      <td>Receipt</td>
-      <td>Date</td>
-    </tr>
-    <tr>
-      <td>Student Name ____________________________________________________<br/>Father Name ___________________________________class_______________<br/>Hostel fees________________________in Word_________________________<br/>__________________________Thank You</td>
-    </tr>
-    <tr>
-      <td>Amount</td>
-      <td>Signature			 	</td>
-    </tr>
-  </table>
+<div id="{$_name}" style="width:50% font-size:15px;" class="hindi  "><link rel="stylesheet" type="text/css" href="templates/default/css/epan.css">
+  <div style="border:1px solid black;width:50%;">
+    <table style="">
+      <tr>
+        <td><img src="logo.png"/></td>
+        <td colspan="6">
+          <h3 align="left">बाल विनय मन्दिर उच्च माध्यमिक विद्यालय </h3>
+          <h5 align="left">J-11 , हरिदासजी की मगरी , उदयपुर (राज)</h5><br/>
+        </td>
+      </tr>
+      <tr align="">
+        <td>Receipt No. _<?$receipt_no?>____</td>
+        <td align="center" style="border:1px solid black">&nbsp; Receipt &nbsp;&nbsp;</td>
+        <td align="right">दिनांक : <?$date?><br/><br/></td>
+      </tr>
+      <tr align="">
+        <td colspan="6" class=" hindi">छात्र का नाम _____<?$student_name?>______________________________________<br/>पिता का नाम _<?$father_name?>_________________________कक्षाः___<?$class?>___________<br/>Hostel Fees: _______<?$amount?>_____शब्दों में:___<?$amount?>_____________________________________<br/>____________________________________________Thank You</td>
+      </tr>
+      <tr align="center">
+        <td align="left">&#x20B9; :  <?$amount?></td>
+        <td colspan="6" align="right">Receiver Signature			 	</td>
+      </tr>
+    </table>
+  </div>
 </div>
