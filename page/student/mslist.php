@@ -177,7 +177,13 @@ class page_student_mslist extends Page {
 		$grid->addColumn('text','obtained_marks');
 		$grid->addColumn('text','Percentage');
 		$grid->addColumn('text','FinalResult');
+		$grid->addColumn('division');
 
+		$grid->addMethod('format_division',function($g,$f)use($division){
+			$g->current_row[$f]=$division;
+		});
+
+		$grid->addFormatter('division','division');
 
 		usort($grid_data, function ($a, $b) { 
 				return $a['roll_no'] >  $b['roll_no']; 
