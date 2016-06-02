@@ -6,7 +6,7 @@ class Model_Fee extends Model_Table{
 		parent::init();
 
 		$this->hasOne('FeesHead','feehead_id');
-		$this->hasOne('Session','session_id');
+		// $this->hasOne('Session','session_id');
 		$this->addField('name');
 		$this->addField('is_Optional')->type('boolean');
 		$this->addField('for_hostler_only')->type('boolean');
